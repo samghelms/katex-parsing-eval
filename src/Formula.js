@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const Formulas = ({data, parentKey}) => {
-  if(data.length > 0) {
+  if(data && data.length > 0) {
     return data.map((el, i)=> {
                                 const key = parentKey+i.toString()
                                 return (<Formula id={key} key={key} el={el}/>)
@@ -25,6 +25,9 @@ class Formula extends Component {
   }
 
   render() {
+    if (this.props.el.failText) {
+      return <div style={{backgroundColor:"red"}}> {this.props.el.failText} </div>
+    }
     const {classes, children, style, value} = this.props.el
     const {id } = this.props
     const classString = classes ? classes.join(" ") : null

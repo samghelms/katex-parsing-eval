@@ -1,21 +1,20 @@
 
 
-export const getParse = text => {
+export const getParse = (text) => {
+	const orig_text = text
+    text = text.replace(/\\begin{equation[^}]*}/g, "");
+    text = text.replace(/\\end{equation[^}]*}/g, "");
+    text = text.replace(/\\begin{align[^}]*}/g, "\\begin{aligned}");
+    text = text.replace(/\\end{align[^}]*}/g, "\\end{aligned}");
+    text = text.replace(/\\label{[^}]*}*/g, "");
+    text = text.replace(/\\n/g, "");
+    text = text.replace(new RegExp('\\$\\$', 'g'), '');
   try {
-      const obj = window.katex.renderToObject(text, {trackLocation: true})
+      const obj = window.katex.renderToObject(text, { throwOnError: false, falsetrackLocation: true})
       return obj
   }
   catch(err) {
-  	try {
-  		const obj = window.katex.renderToObject(text, {throwOnError: false, trackLocation: true})
-    	return obj
-  	}
-  	catch(err) {
-  		console.log("NON FIXABLE ERROR")
-  		return null
-  	}
-    console.log("ERROR")
-    return null
+  	return "original: "+orig_text+ " \n With our regex: "+text
   }
 }
 

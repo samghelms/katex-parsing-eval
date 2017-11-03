@@ -45,6 +45,9 @@ class Tree extends Component {
   }
 
   render() {
+    if(!this.props.formula) {
+      return <div> no tree </div>
+    }
     const display = dfs(this.props.formula)
     const text = this.state.expanded < 0?"show":"hide"
     return (

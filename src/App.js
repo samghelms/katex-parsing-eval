@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header"></div>
-        <div> select test option below </div>
+        <div> Select test option below </div>
         <Tester/>
       </div>
     );
